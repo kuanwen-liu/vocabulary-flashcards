@@ -49,6 +49,10 @@ export function StudyView() {
     dispatch({ type: 'TOGGLE_MASTERED', payload: currentCard.id });
   }, [currentCard, dispatch]);
 
+  const handleShuffle = useCallback(() => {
+    dispatch({ type: 'SHUFFLE_CARDS' });
+  }, [dispatch]);
+
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -78,12 +82,17 @@ export function StudyView() {
           e.preventDefault();
           handleToggleMastered();
           break;
+        case 's':
+        case 'S':
+          e.preventDefault();
+          handleShuffle();
+          break;
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [handleNext, handlePrevious, handleToggleMastered]);
+  }, [handleNext, handlePrevious, handleToggleMastered, handleShuffle]);
 
   // Empty state - No cards
   if (state.cards.length === 0) {
@@ -187,17 +196,44 @@ export function StudyView() {
                 <span className="block">← → Navigate</span>
                 <span className="block">SPACE Flip</span>
                 <span className="block">M Toggle Mastered</span>
+                <span className="block">S Shuffle</span>
               </p>
             </div>
           </div>
 
-          {/* Filter Toggle */}
-          <div className="flex justify-center">
+          {/* Filter Toggle and Shuffle */}
+          <div className="flex justify-center items-center gap-4">
             <FilterToggle
               filter={state.filter}
               onFilterChange={(filter) => dispatch({ type: 'SET_FILTER', payload: filter })}
               needsReviewCount={stats.needsReview}
             />
+
+            {/* Shuffle Button */}
+            <button
+              onClick={handleShuffle}
+              disabled={state.cards.length === 0}
+              className="group relative p-3 rounded-xl bg-dark-card border-2 border-dark-border hover:border-accent-secondary transition-all duration-300 hover:shadow-glow-pink disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:border-dark-border disabled:hover:shadow-none"
+              aria-label="Shuffle cards for randomized study"
+              title="Shuffle cards"
+            >
+              <svg
+                className="w-5 h-5 text-gray-400 group-hover:text-accent-secondary transition-colors duration-300"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
+                />
+              </svg>
+              <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs text-gray-500 font-mono opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                Shuffle
+              </span>
+            </button>
           </div>
 
           {/* Progress Bar */}

@@ -153,10 +153,10 @@ description: "Task list for flashcards application implementation"
 
 **Purpose**: User-requested shuffle function and additional improvements
 
-- [ ] T055 [P] Add SHUFFLE_CARDS action to cardReducer in src/contexts/CardContext.tsx
-- [ ] T056 Implement Fisher-Yates shuffle algorithm in SHUFFLE_CARDS action handler
-- [ ] T057 Add shuffle button to StudyView.tsx with 🔀 icon
-- [ ] T058 [P] Add ARIA label "Shuffle cards for randomized study" to shuffle button
+- [X] T055 [P] Add SHUFFLE_CARDS action to cardReducer in src/contexts/CardContext.tsx
+- [X] T056 Implement Fisher-Yates shuffle algorithm in SHUFFLE_CARDS action handler
+- [X] T057 Add shuffle button to StudyView.tsx with 🔀 icon
+- [X] T058 [P] Add ARIA label "Shuffle cards for randomized study" to shuffle button
 
 ---
 
