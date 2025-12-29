@@ -14,6 +14,7 @@ import { useState } from 'react';
 import { StudyView } from './components/StudyView';
 import { CardLibrary } from './components/CardLibrary';
 import { AddCardForm } from './components/AddCardForm';
+import { BulkImport } from './components/BulkImport';
 import './App.css';
 
 type View = 'study' | 'manage';
@@ -135,8 +136,13 @@ function App() {
               </div>
             </section>
 
-            {/* Vocabulary Library Section */}
+            {/* Bulk Import Section */}
             <section className="animate-fade-in-up stagger-1">
+              <BulkImport />
+            </section>
+
+            {/* Vocabulary Library Section */}
+            <section className="animate-fade-in-up stagger-2">
               <div className="mb-6">
                 <h2 className="text-2xl font-bold text-white mb-2">Your Vocabulary</h2>
                 <p className="text-gray-400 font-mono text-sm">

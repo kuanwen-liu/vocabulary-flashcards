@@ -134,16 +134,16 @@ description: "Task list for flashcards application implementation"
 
 ### Implementation for User Story 4
 
-- [ ] T045 [P] [US4] Create src/utils/bulkImport.ts with parseBulkImportText function
-- [ ] T046 [US4] Implement parsing logic for semicolon-separated and newline-separated formats in bulkImport.ts
-- [ ] T047 [US4] Add validation for each parsed entry in bulkImport.ts (non-empty term and definition)
-- [ ] T048 [P] [US4] Create src/components/BulkImport.tsx with textarea and import button
-- [ ] T049 [US4] Implement import handler in BulkImport.tsx calling parseBulkImportText utility
-- [ ] T050 [US4] Dispatch BULK_IMPORT action with parsed cards in BulkImport.tsx
-- [ ] T051 [US4] Add success/failure feedback UI in BulkImport.tsx showing import results
-- [ ] T052 [US4] Handle duplicate detection in BulkImport.tsx (warn or skip duplicates)
-- [ ] T053 [US4] Add empty input validation in BulkImport.tsx with error message
-- [ ] T054 [US4] Integrate BulkImport component into CardLibrary.tsx or App.tsx navigation
+- [X] T045 [P] [US4] Create src/utils/bulkImport.ts with parseBulkImportText function
+- [X] T046 [US4] Implement parsing logic for semicolon-separated and newline-separated formats in bulkImport.ts
+- [X] T047 [US4] Add validation for each parsed entry in bulkImport.ts (non-empty term and definition)
+- [X] T048 [P] [US4] Create src/components/BulkImport.tsx with textarea and import button
+- [X] T049 [US4] Implement import handler in BulkImport.tsx calling parseBulkImportText utility
+- [X] T050 [US4] Dispatch BULK_IMPORT action with parsed cards in BulkImport.tsx
+- [X] T051 [US4] Add success/failure feedback UI in BulkImport.tsx showing import results
+- [X] T052 [US4] Handle duplicate detection in BulkImport.tsx (warn or skip duplicates)
+- [X] T053 [US4] Add empty input validation in BulkImport.tsx with error message
+- [X] T054 [US4] Integrate BulkImport component into CardLibrary.tsx or App.tsx navigation
 
 **Checkpoint**: All user stories complete and independently testable
 
