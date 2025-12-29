@@ -3,6 +3,8 @@
 Auto-generated from all feature plans. Last updated: 2025-12-29
 
 ## Active Technologies
+- TypeScript 5.x (strict mode) with React 19.x + React 19.2.0, Vite 7.x, Tailwind CSS 3.x, Web Speech API (browser native) (002-flashcard-enhancements)
+- Browser LocalStorage (all flashcard data persisted client-side) (002-flashcard-enhancements)
 
 - TypeScript 5.x (strict mode) with React 19.x + React 19.2.0, Vite 7.x, Tailwind CSS 3.x (001-flashcards-app)
 
@@ -22,6 +24,7 @@ npm test && npm run lint
 TypeScript 5.x (strict mode) with React 19.x: Follow standard conventions
 
 ## Recent Changes
+- 002-flashcard-enhancements: Added TypeScript 5.x (strict mode) with React 19.x + React 19.2.0, Vite 7.x, Tailwind CSS 3.x, Web Speech API (browser native)
 
 - 001-flashcards-app: Added TypeScript 5.x (strict mode) with React 19.x + React 19.2.0, Vite 7.x, Tailwind CSS 3.x
 
