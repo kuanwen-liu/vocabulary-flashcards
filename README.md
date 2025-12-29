@@ -10,6 +10,9 @@ A flashcard application built with React, Vite, and Tailwind CSS. The app allows
 - Shuffle the deck of flashcards
 - Track progress with a mastered toggle
 - Save flashcards to local storage
+- Text-to-speech pronunciation (Web Speech API)
+- Part of speech categorization
+- Example sentences for context
 
 ### Tech Stack
 
@@ -25,12 +28,24 @@ A flashcard application built with React, Vite, and Tailwind CSS. The app allows
 2. Install dependencies: `npm install`
 3. Run the app: `npm run dev`
 
+### Browser Compatibility
+
+**Text-to-Speech Feature** requires Web Speech API support:
+- ✅ Chrome 33+
+- ✅ Edge 14+
+- ✅ Safari 7+
+- ✅ Firefox 49+
+- ✅ Mobile browsers (iOS Safari, Chrome Mobile)
+
+**Note**: The app works offline. TTS functionality uses browser-native speech synthesis with no external dependencies.
+
 ### Usage
 
 1. Add new flashcards using the AddCardForm
 2. Shuffle the deck using the Shuffle button
 3. Study the flashcards using the StudyView
 4. Track progress using the Mastered toggle
+5. Click the speaker button on flashcards to hear pronunciations
 
 ### Contributing
 
