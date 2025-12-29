@@ -111,16 +111,16 @@ description: "Task list for flashcards application implementation"
 
 ### Implementation for User Story 3
 
-- [ ] T035 [P] [US3] Add mastered toggle button to FlashCard.tsx component
-- [ ] T036 [US3] Implement TOGGLE_MASTERED action dispatch in FlashCard.tsx on button click
-- [ ] T037 [US3] Add visual indicator (checkmark, color change) for mastered status in FlashCard.tsx
-- [ ] T038 [P] [US3] Create src/components/FilterToggle.tsx with All/Needs Review toggle
-- [ ] T039 [US3] Implement SET_FILTER action dispatch in FilterToggle.tsx
-- [ ] T040 [US3] Add visibleCards computed property in StudyView.tsx based on filter state
-- [ ] T041 [US3] Update StudyView.tsx to display filtered cards instead of all cards
-- [ ] T042 [US3] Add empty state for "All cards mastered" when filter is needsReview and all mastered
-- [ ] T043 [US3] Integrate FilterToggle into StudyView.tsx UI
-- [ ] T044 [US3] Add mastered count display in CardLibrary.tsx showing progress stats
+- [X] T035 [P] [US3] Add mastered toggle button to FlashCard.tsx component
+- [X] T036 [US3] Implement TOGGLE_MASTERED action dispatch in FlashCard.tsx on button click
+- [X] T037 [US3] Add visual indicator (checkmark, color change) for mastered status in FlashCard.tsx
+- [X] T038 [P] [US3] Create src/components/FilterToggle.tsx with All/Needs Review toggle
+- [X] T039 [US3] Implement SET_FILTER action dispatch in FilterToggle.tsx
+- [X] T040 [US3] Add visibleCards computed property in StudyView.tsx based on filter state
+- [X] T041 [US3] Update StudyView.tsx to display filtered cards instead of all cards
+- [X] T042 [US3] Add empty state for "All cards mastered" when filter is needsReview and all mastered
+- [X] T043 [US3] Integrate FilterToggle into StudyView.tsx UI
+- [X] T044 [US3] Add mastered count display in CardLibrary.tsx showing progress stats
 
 **Checkpoint**: All user stories should now be independently functional
 

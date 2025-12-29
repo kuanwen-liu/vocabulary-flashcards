@@ -18,13 +18,15 @@
  */
 
 import { useEffect, useCallback } from 'react';
-import { useCards, getVisibleCards, getCurrentCard } from '../contexts/CardContext';
+import { useCards, getVisibleCards, getCurrentCard, getCardStats } from '../contexts/CardContext';
 import { FlashCard } from './FlashCard';
+import { FilterToggle } from './FilterToggle';
 
 export function StudyView() {
   const { state, dispatch } = useCards();
   const visibleCards = getVisibleCards(state);
   const currentCard = getCurrentCard(state);
+  const stats = getCardStats(state);
 
   // Navigation handlers
   const handleNext = useCallback(() => {
@@ -166,9 +168,9 @@ export function StudyView() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 py-12">
       <div className="w-full max-w-4xl">
-        {/* Header with Progress */}
-        <div className="mb-8 animate-fade-in-up">
-          <div className="flex items-center justify-between mb-4">
+        {/* Header with Progress and Filter */}
+        <div className="mb-8 animate-fade-in-up space-y-4">
+          <div className="flex items-center justify-between">
             <div>
               <h1 className="text-2xl font-bold gradient-text">
                 Study Mode
@@ -187,6 +189,15 @@ export function StudyView() {
                 <span className="block">M Toggle Mastered</span>
               </p>
             </div>
+          </div>
+
+          {/* Filter Toggle */}
+          <div className="flex justify-center">
+            <FilterToggle
+              filter={state.filter}
+              onFilterChange={(filter) => dispatch({ type: 'SET_FILTER', payload: filter })}
+              needsReviewCount={stats.needsReview}
+            />
           </div>
 
           {/* Progress Bar */}
