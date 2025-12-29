@@ -44,7 +44,7 @@ export function FlashCard({
         onClick={handleFlip}
         role="button"
         tabIndex={0}
-        aria-label={isFlipped ? `Definition: ${definition}. Click to see term.` : `Term: ${term}. Click to see definition.`}
+        aria-label={isFlipped ? `Meaning: ${definition}. Click to see vocabulary.` : `Vocabulary: ${term}. Click to see meaning.`}
         aria-pressed={isFlipped}
         onKeyDown={(e) => {
           if (e.key === 'Enter' || e.key === ' ') {
@@ -53,7 +53,7 @@ export function FlashCard({
           }
         }}
       >
-        {/* Front Face - Term */}
+        {/* Front Face - Word */}
         <div className="flip-card-face flip-card-front">
           <div className="card-content group">
             {/* Holographic shine effect */}
@@ -62,7 +62,7 @@ export function FlashCard({
             {/* Card header with mastered badge */}
             <div className="flex items-center justify-between mb-8">
               <span className="text-sm font-mono text-accent-primary uppercase tracking-wider">
-                Term
+                Vocabulary
               </span>
               {mastered && (
                 <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-accent-success/20 border border-accent-success/40">
@@ -74,7 +74,7 @@ export function FlashCard({
               )}
             </div>
 
-            {/* Term text */}
+            {/* Word text */}
             <div className="flex-1 flex items-center justify-center px-8">
               <h2 className="text-4xl md:text-5xl font-bold text-center leading-tight tracking-tight">
                 {term}
@@ -96,12 +96,12 @@ export function FlashCard({
                   d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"
                 />
               </svg>
-              <span>Click to reveal definition</span>
+              <span>Click to reveal meaning</span>
             </div>
           </div>
         </div>
 
-        {/* Back Face - Definition */}
+        {/* Back Face - Meaning */}
         <div className="flip-card-face flip-card-back">
           <div className="card-content group">
             {/* Holographic shine effect */}
@@ -110,7 +110,7 @@ export function FlashCard({
             {/* Card header */}
             <div className="flex items-center justify-between mb-8">
               <span className="text-sm font-mono text-accent-secondary uppercase tracking-wider">
-                Definition
+                Meaning
               </span>
               {mastered && (
                 <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-accent-success/20 border border-accent-success/40">
@@ -122,7 +122,7 @@ export function FlashCard({
               )}
             </div>
 
-            {/* Definition text */}
+            {/* Meaning text */}
             <div className="flex-1 flex items-center justify-center px-8">
               <p className="text-2xl md:text-3xl text-center leading-relaxed text-gray-200">
                 {definition}
@@ -144,7 +144,7 @@ export function FlashCard({
                   d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"
                 />
               </svg>
-              <span>Click to see term</span>
+              <span>Click to see vocabulary</span>
             </div>
           </div>
         </div>

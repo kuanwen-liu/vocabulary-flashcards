@@ -86,18 +86,18 @@ description: "Task list for flashcards application implementation"
 
 ### Implementation for User Story 2
 
-- [ ] T023 [P] [US2] Create src/components/AddCardForm.tsx with term and definition input fields
-- [ ] T024 [US2] Implement form validation in AddCardForm.tsx (non-empty, max length 500/2000)
-- [ ] T025 [US2] Add form submit handler in AddCardForm.tsx dispatching ADD_CARD action
-- [ ] T026 [US2] Add visual feedback for successful card creation in AddCardForm.tsx
-- [ ] T027 [P] [US2] Create src/components/CardLibrary.tsx to display list of all cards
-- [ ] T028 [US2] Add edit mode toggle in CardLibrary.tsx with inline editing for term and definition
-- [ ] T029 [US2] Implement UPDATE_CARD action dispatch on edit save in CardLibrary.tsx
-- [ ] T030 [US2] Add delete button with confirmation dialog in CardLibrary.tsx
-- [ ] T031 [US2] Implement DELETE_CARD action dispatch in CardLibrary.tsx
-- [ ] T032 [US2] Add empty state message in CardLibrary.tsx when no cards exist
-- [ ] T033 [US2] Create navigation between StudyView and CardLibrary in src/App.tsx
-- [ ] T034 [US2] Add error handling for LocalStorage quota exceeded in useLocalStorage.ts hook
+- [X] T023 [P] [US2] Create src/components/AddCardForm.tsx with term and definition input fields
+- [X] T024 [US2] Implement form validation in AddCardForm.tsx (non-empty, max length 500/2000)
+- [X] T025 [US2] Add form submit handler in AddCardForm.tsx dispatching ADD_CARD action
+- [X] T026 [US2] Add visual feedback for successful card creation in AddCardForm.tsx
+- [X] T027 [P] [US2] Create src/components/CardLibrary.tsx to display list of all cards
+- [X] T028 [US2] Add edit mode toggle in CardLibrary.tsx with inline editing for term and definition
+- [X] T029 [US2] Implement UPDATE_CARD action dispatch on edit save in CardLibrary.tsx
+- [X] T030 [US2] Add delete button with confirmation dialog in CardLibrary.tsx
+- [X] T031 [US2] Implement DELETE_CARD action dispatch in CardLibrary.tsx
+- [X] T032 [US2] Add empty state message in CardLibrary.tsx when no cards exist
+- [X] T033 [US2] Create navigation between StudyView and CardLibrary in src/App.tsx
+- [X] T034 [US2] Add error handling for LocalStorage quota exceeded in useLocalStorage.ts hook
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently
 
