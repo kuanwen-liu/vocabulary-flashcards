@@ -121,23 +121,23 @@ Repository structure (single-project React web application):
 
 ### Implementation for User Story 2
 
-- [ ] T034 [P] [US2] Add dynamic example sentences input to AddCardForm (array of text inputs, max 5) in src/components/AddCardForm.tsx
-- [ ] T035 [P] [US2] Add "Add Another Example" button to AddCardForm (disabled when 5 examples reached) in src/components/AddCardForm.tsx
-- [ ] T036 [P] [US2] Add "Remove" button for each example input in AddCardForm in src/components/AddCardForm.tsx
-- [ ] T037 [US2] Add character count indicator (max 500 chars per example) for each input in src/components/AddCardForm.tsx
-- [ ] T038 [US2] Update AddCardForm submit handler to filter empty examples and include exampleSentences in CreateFlashcardInput in src/components/AddCardForm.tsx
-- [ ] T039 [US2] Add example sentences display section on FlashCard back side (below part of speech badge) in src/components/FlashCard.tsx
-- [ ] T040 [US2] Style example sentences as bulleted list with purple border-left accent in src/components/FlashCard.tsx
-- [ ] T041 [US2] Add conditional rendering for examples section (hide if undefined or empty array) in src/components/FlashCard.tsx
-- [ ] T042 [US2] Add example sentences edit inputs to CardLibrary edit mode (dynamic list like AddCardForm) in src/components/CardLibrary.tsx
-- [ ] T043 [US2] Update CardLibrary save handler to persist exampleSentences changes in src/components/CardLibrary.tsx
-- [ ] T044 [US2] Test creating flashcard with 1 example sentence and verify display
-- [ ] T045 [US2] Test creating flashcard with 5 example sentences (max) and verify all display
-- [ ] T046 [US2] Test editing flashcard to add/modify/remove example sentences
-- [ ] T047 [US2] Test mobile responsiveness: verify examples list doesn't cause excessive scrolling
-- [ ] T048 [US2] Test backward compatibility: verify old flashcards without exampleSentences display correctly (no examples section shown)
+- [x] T034 [P] [US2] Add dynamic example sentences input to AddCardForm (array of text inputs, max 5) in src/components/AddCardForm.tsx
+- [x] T035 [P] [US2] Add "Add Another Example" button to AddCardForm (disabled when 5 examples reached) in src/components/AddCardForm.tsx
+- [x] T036 [P] [US2] Add "Remove" button for each example input in AddCardForm in src/components/AddCardForm.tsx
+- [x] T037 [US2] Add character count indicator (max 500 chars per example) for each input in src/components/AddCardForm.tsx
+- [x] T038 [US2] Update AddCardForm submit handler to filter empty examples and include exampleSentences in CreateFlashcardInput in src/components/AddCardForm.tsx
+- [x] T039 [US2] Add example sentences display section on FlashCard back side (below part of speech badge) in src/components/FlashCard.tsx
+- [x] T040 [US2] Style example sentences as bulleted list with purple border-left accent in src/components/FlashCard.tsx
+- [x] T041 [US2] Add conditional rendering for examples section (hide if undefined or empty array) in src/components/FlashCard.tsx
+- [x] T042 [US2] Add example sentences edit inputs to CardLibrary edit mode (dynamic list like AddCardForm) in src/components/CardLibrary.tsx
+- [x] T043 [US2] Update CardLibrary save handler to persist exampleSentences changes in src/components/CardLibrary.tsx
+- [x] T044 [US2] Test creating flashcard with 1 example sentence and verify display
+- [x] T045 [US2] Test creating flashcard with 5 example sentences (max) and verify all display
+- [x] T046 [US2] Test editing flashcard to add/modify/remove example sentences
+- [x] T047 [US2] Test mobile responsiveness: verify examples list doesn't cause excessive scrolling
+- [x] T048 [US2] Test backward compatibility: verify old flashcards without exampleSentences display correctly (no examples section shown)
 
-**Checkpoint**: Example sentences fully functional for create, display, and edit operations
+**Checkpoint**: ✅ Example sentences fully functional for create, display, and edit operations
 
 ---
 
@@ -147,16 +147,16 @@ Repository structure (single-project React web application):
 
 **Dependencies**: Requires User Story 1 and 2 implementation complete
 
-- [ ] T049 Update parseBulkImport function to parse partOfSpeech from 3rd comma-separated field in src/utils/bulkImport.ts
-- [ ] T050 Update parseBulkImport function to parse exampleSentences from 4th field (pipe-delimited: example1 | example2) in src/utils/bulkImport.ts
-- [ ] T051 Add error handling for malformed bulk import lines with new fields in src/utils/bulkImport.ts
-- [ ] T052 Update BulkImport component documentation/tooltip with new format example in src/components/BulkImport.tsx
-- [ ] T053 Test bulk import with old format (term, definition only) - verify backward compatibility
-- [ ] T054 Test bulk import with new format including part of speech: "ephemeral, lasting briefly, adjective"
-- [ ] T055 Test bulk import with new format including examples: "ephemeral, lasting briefly, adjective, Cherry blossoms are ephemeral | Morning dew is ephemeral"
-- [ ] T056 Test bulk import with mixed old and new format lines - verify all parse correctly
+- [x] T049 Update parseBulkImport function to parse partOfSpeech from 3rd comma-separated field in src/utils/bulkImport.ts
+- [x] T050 Update parseBulkImport function to parse exampleSentences from 4th field (pipe-delimited: example1 | example2) in src/utils/bulkImport.ts
+- [x] T051 Add error handling for malformed bulk import lines with new fields in src/utils/bulkImport.ts
+- [x] T052 Update BulkImport component documentation/tooltip with new format example in src/components/BulkImport.tsx
+- [x] T053 Test bulk import with old format (term, definition only) - verify backward compatibility
+- [x] T054 Test bulk import with new format including part of speech: "ephemeral, lasting briefly, adjective"
+- [x] T055 Test bulk import with new format including examples: "ephemeral, lasting briefly, adjective, Cherry blossoms are ephemeral | Morning dew is ephemeral"
+- [x] T056 Test bulk import with mixed old and new format lines - verify all parse correctly
 
-**Checkpoint**: Bulk import supports all optional fields while maintaining backward compatibility
+**Checkpoint**: ✅ Bulk import supports all optional fields while maintaining backward compatibility
 
 ---
 

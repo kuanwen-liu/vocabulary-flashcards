@@ -26,6 +26,7 @@ export function FlashCard({
   mastered,
   onToggleMastered,
   partOfSpeech,
+  exampleSentences,
 }: FlashCardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
 
@@ -154,6 +155,38 @@ export function FlashCard({
                   <span className="text-sm font-mono text-cyan-300 uppercase tracking-wide">
                     {partOfSpeech}
                   </span>
+                </div>
+              )}
+
+              {/* Example Sentences */}
+              {exampleSentences && exampleSentences.length > 0 && (
+                <div className="w-full max-w-xl space-y-3">
+                  <div className="flex items-center gap-2 text-sm font-mono text-purple-400 uppercase tracking-wider">
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                      />
+                    </svg>
+                    Examples
+                  </div>
+                  <ul className="space-y-2">
+                    {exampleSentences.map((example, index) => (
+                      <li
+                        key={index}
+                        className="pl-4 pr-2 py-2 text-sm text-gray-300 border-l-4 border-purple-500/60 bg-purple-500/10 rounded-r-lg"
+                      >
+                        {example}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               )}
             </div>

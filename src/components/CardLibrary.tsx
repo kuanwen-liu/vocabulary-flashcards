@@ -28,6 +28,7 @@ interface EditingCard {
   term: string;
   definition: string;
   partOfSpeech?: string;
+  exampleSentences?: string[];
 }
 
 export function CardLibrary({ onNavigateToStudy }: CardLibraryProps = {}) {
@@ -37,13 +38,46 @@ export function CardLibrary({ onNavigateToStudy }: CardLibraryProps = {}) {
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
 
   // Start editing a card
-  const handleStartEdit = (id: string, term: string, definition: string, partOfSpeech?: string) => {
-    setEditingCard({ id, term, definition, partOfSpeech });
+  const handleStartEdit = (id: string, term: string, definition: string, partOfSpeech?: string, exampleSentences?: string[]) => {
+    setEditingCard({
+      id,
+      term,
+      definition,
+      partOfSpeech,
+      exampleSentences: exampleSentences && exampleSentences.length > 0 ? [...exampleSentences] : ['']
+    });
   };
 
   // Cancel editing
   const handleCancelEdit = () => {
     setEditingCard(null);
+  };
+
+  // Handle example sentence changes in edit mode
+  const handleEditExampleChange = (index: number, value: string) => {
+    if (!editingCard) return;
+    const newExamples = [...(editingCard.exampleSentences || [''])];
+    newExamples[index] = value;
+    setEditingCard({ ...editingCard, exampleSentences: newExamples });
+  };
+
+  const handleAddEditExample = () => {
+    if (!editingCard) return;
+    const currentExamples = editingCard.exampleSentences || [''];
+    if (currentExamples.length < FLASHCARD_CONSTRAINTS.MAX_EXAMPLE_SENTENCES) {
+      setEditingCard({ ...editingCard, exampleSentences: [...currentExamples, ''] });
+    }
+  };
+
+  const handleRemoveEditExample = (index: number) => {
+    if (!editingCard) return;
+    const currentExamples = editingCard.exampleSentences || [''];
+    if (currentExamples.length > 1) {
+      const newExamples = currentExamples.filter((_, i) => i !== index);
+      setEditingCard({ ...editingCard, exampleSentences: newExamples });
+    } else {
+      setEditingCard({ ...editingCard, exampleSentences: [''] });
+    }
   };
 
   // Save edited card
@@ -53,6 +87,9 @@ export function CardLibrary({ onNavigateToStudy }: CardLibraryProps = {}) {
     const trimmedTerm = editingCard.term.trim();
     const trimmedDefinition = editingCard.definition.trim();
     const trimmedPartOfSpeech = editingCard.partOfSpeech?.trim();
+    const filteredExamples = (editingCard.exampleSentences || [])
+      .map(ex => ex.trim())
+      .filter(ex => ex.length > 0);
 
     // Validation
     if (!trimmedTerm || !trimmedDefinition) {
@@ -75,6 +112,14 @@ export function CardLibrary({ onNavigateToStudy }: CardLibraryProps = {}) {
       return;
     }
 
+    // Validate example sentences
+    for (const example of filteredExamples) {
+      if (example.length > FLASHCARD_CONSTRAINTS.EXAMPLE_SENTENCE_MAX_LENGTH) {
+        alert(`Each example must be ${FLASHCARD_CONSTRAINTS.EXAMPLE_SENTENCE_MAX_LENGTH} characters or less`);
+        return;
+      }
+    }
+
     // Dispatch UPDATE_CARD action
     dispatch({
       type: 'UPDATE_CARD',
@@ -84,6 +129,7 @@ export function CardLibrary({ onNavigateToStudy }: CardLibraryProps = {}) {
           term: trimmedTerm,
           definition: trimmedDefinition,
           ...(trimmedPartOfSpeech && { partOfSpeech: trimmedPartOfSpeech }),
+          ...(filteredExamples.length > 0 && { exampleSentences: filteredExamples }),
         },
       },
     });
@@ -300,6 +346,49 @@ export function CardLibrary({ onNavigateToStudy }: CardLibraryProps = {}) {
                       ))}
                     </datalist>
                   </div>
+
+                  {/* Example Sentences Edit */}
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <label className="block text-xs font-mono text-purple-400 uppercase">
+                        Examples (Optional)
+                      </label>
+                      <span className="text-xs text-gray-500 font-mono">
+                        {(editingCard.exampleSentences || ['']).filter(ex => ex.trim()).length} / {FLASHCARD_CONSTRAINTS.MAX_EXAMPLE_SENTENCES}
+                      </span>
+                    </div>
+                    <div className="space-y-2">
+                      {(editingCard.exampleSentences || ['']).map((example, index) => (
+                        <div key={index} className="flex gap-1">
+                          <input
+                            type="text"
+                            value={example}
+                            onChange={(e) => handleEditExampleChange(index, e.target.value)}
+                            className="flex-1 px-2 py-1.5 bg-dark-bg border-2 border-purple-400/60 rounded-lg text-white text-sm focus:outline-none focus:border-purple-400"
+                            placeholder={`Example ${index + 1}`}
+                          />
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveEditExample(index)}
+                            className="px-2 py-1 bg-dark-bg border-2 border-dark-border hover:border-red-500 hover:text-red-500 rounded-lg transition-all text-xs"
+                            aria-label={`Remove example ${index + 1}`}
+                          >
+                            ✕
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                    {(editingCard.exampleSentences || ['']).length < FLASHCARD_CONSTRAINTS.MAX_EXAMPLE_SENTENCES && (
+                      <button
+                        type="button"
+                        onClick={handleAddEditExample}
+                        className="w-full px-2 py-1.5 rounded-lg border-2 border-purple-400/40 text-purple-400 hover:border-purple-400 hover:bg-purple-400/10 transition-all text-xs font-mono uppercase"
+                      >
+                        + Add Example
+                      </button>
+                    )}
+                  </div>
+
                   <div className="flex gap-2">
                     <button
                       onClick={handleSaveEdit}
@@ -359,6 +448,27 @@ export function CardLibrary({ onNavigateToStudy }: CardLibraryProps = {}) {
                     </div>
                   )}
 
+                  {/* Example Sentences */}
+                  {card.exampleSentences && card.exampleSentences.length > 0 && (
+                    <div className="space-y-1">
+                      <p className="text-xs font-mono text-purple-400 uppercase">
+                        Examples ({card.exampleSentences.length})
+                      </p>
+                      <div className="space-y-1">
+                        {card.exampleSentences.slice(0, 2).map((example, index) => (
+                          <p key={index} className="text-xs text-gray-400 pl-2 border-l-2 border-purple-500/60 line-clamp-1">
+                            {example}
+                          </p>
+                        ))}
+                        {card.exampleSentences.length > 2 && (
+                          <p className="text-xs text-gray-500 pl-2">
+                            +{card.exampleSentences.length - 2} more
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
                   {/* Action Buttons */}
                   <div className="flex gap-2 pt-2 border-t border-dark-border">
                     <button
@@ -377,7 +487,7 @@ export function CardLibrary({ onNavigateToStudy }: CardLibraryProps = {}) {
                       {card.mastered ? 'Mastered' : 'Mark Mastered'}
                     </button>
                     <button
-                      onClick={() => handleStartEdit(card.id, card.term, card.definition, card.partOfSpeech)}
+                      onClick={() => handleStartEdit(card.id, card.term, card.definition, card.partOfSpeech, card.exampleSentences)}
                       className="px-3 py-2 bg-dark-bg border-2 border-dark-border text-gray-400 rounded-lg hover:border-accent-primary hover:text-accent-primary transition-all"
                       aria-label="Edit card"
                     >
