@@ -25,3 +25,7 @@ dist-ssr
 
 # Skills
 skills
+
+# Environment variables
+.env*
+\!.env.example

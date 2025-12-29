@@ -29,9 +29,9 @@ description: "Task list for flashcards application implementation"
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Install Tailwind CSS and dependencies via npm install -D tailwindcss@latest postcss autoprefixer
-- [ ] T002 Initialize Tailwind config with npx tailwindcss init -p
-- [ ] T003 Configure tailwind.config.js with dark mode class strategy and custom colors per research.md
+- [X] T001 Install Tailwind CSS and dependencies via npm install -D tailwindcss@latest postcss autoprefixer
+- [X] T002 Initialize Tailwind config with npx tailwindcss init -p
+- [X] T003 Configure tailwind.config.js with dark mode class strategy and custom colors per research.md
 - [ ] T004 [P] Create src/index.css with Tailwind directives and dark theme defaults
 - [ ] T005 [P] Enable TypeScript strict mode in tsconfig.json
 - [ ] T006 [P] Create src/types/flashcard.ts with Flashcard and CardState interfaces
