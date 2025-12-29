@@ -173,7 +173,6 @@ function cardReducer(state: CardState, action: CardAction): CardState {
 
     default:
       // TypeScript ensures exhaustive case handling
-      const _exhaustive: never = action;
       return state;
   }
 }

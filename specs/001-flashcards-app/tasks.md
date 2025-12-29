@@ -63,16 +63,16 @@ description: "Task list for flashcards application implementation"
 
 ### Implementation for User Story 1
 
-- [ ] T013 [P] [US1] Create src/components/FlashCard.tsx with flip card UI using CSS 3D transforms
-- [ ] T014 [P] [US1] Add CSS for 3D flip animation in FlashCard.tsx (perspective 1000px, rotateY, preserve-3d)
-- [ ] T015 [P] [US1] Implement click handler to toggle isFlipped state in FlashCard.tsx
-- [ ] T016 [P] [US1] Add hardware acceleration (will-change, translateZ) to flip animation in FlashCard.tsx
-- [ ] T017 [US1] Create src/components/StudyView.tsx with card display and navigation controls
-- [ ] T018 [US1] Implement next/previous navigation in StudyView.tsx using NAVIGATE action
-- [ ] T019 [US1] Add empty state handling in StudyView.tsx for zero cards with appropriate message
-- [ ] T020 [US1] Add keyboard navigation (Arrow keys, Spacebar) in StudyView.tsx
-- [ ] T021 [US1] Add ARIA labels for card state and navigation in StudyView.tsx and FlashCard.tsx
-- [ ] T022 [US1] Integrate StudyView into src/App.tsx as the main view
+- [X] T013 [P] [US1] Create src/components/FlashCard.tsx with flip card UI using CSS 3D transforms
+- [X] T014 [P] [US1] Add CSS for 3D flip animation in FlashCard.tsx (perspective 1000px, rotateY, preserve-3d)
+- [X] T015 [P] [US1] Implement click handler to toggle isFlipped state in FlashCard.tsx
+- [X] T016 [P] [US1] Add hardware acceleration (will-change, translateZ) to flip animation in FlashCard.tsx
+- [X] T017 [US1] Create src/components/StudyView.tsx with card display and navigation controls
+- [X] T018 [US1] Implement next/previous navigation in StudyView.tsx using NAVIGATE action
+- [X] T019 [US1] Add empty state handling in StudyView.tsx for zero cards with appropriate message
+- [X] T020 [US1] Add keyboard navigation (Arrow keys, Spacebar) in StudyView.tsx
+- [X] T021 [US1] Add ARIA labels for card state and navigation in StudyView.tsx and FlashCard.tsx
+- [X] T022 [US1] Integrate StudyView into src/App.tsx as the main view
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
 
