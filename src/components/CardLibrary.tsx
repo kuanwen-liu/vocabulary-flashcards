@@ -21,11 +21,13 @@
 import { useState } from 'react';
 import { useCards, getCardStats } from '../contexts/CardContext';
 import type { CardLibraryProps } from '../types/flashcard';
+import { RECOMMENDED_PARTS_OF_SPEECH, FLASHCARD_CONSTRAINTS } from '../types/flashcard';
 
 interface EditingCard {
   id: string;
   term: string;
   definition: string;
+  partOfSpeech?: string;
 }
 
 export function CardLibrary({ onNavigateToStudy }: CardLibraryProps = {}) {
@@ -35,8 +37,8 @@ export function CardLibrary({ onNavigateToStudy }: CardLibraryProps = {}) {
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
 
   // Start editing a card
-  const handleStartEdit = (id: string, term: string, definition: string) => {
-    setEditingCard({ id, term, definition });
+  const handleStartEdit = (id: string, term: string, definition: string, partOfSpeech?: string) => {
+    setEditingCard({ id, term, definition, partOfSpeech });
   };
 
   // Cancel editing
@@ -50,6 +52,7 @@ export function CardLibrary({ onNavigateToStudy }: CardLibraryProps = {}) {
 
     const trimmedTerm = editingCard.term.trim();
     const trimmedDefinition = editingCard.definition.trim();
+    const trimmedPartOfSpeech = editingCard.partOfSpeech?.trim();
 
     // Validation
     if (!trimmedTerm || !trimmedDefinition) {
@@ -67,6 +70,11 @@ export function CardLibrary({ onNavigateToStudy }: CardLibraryProps = {}) {
       return;
     }
 
+    if (trimmedPartOfSpeech && trimmedPartOfSpeech.length > FLASHCARD_CONSTRAINTS.PART_OF_SPEECH_MAX_LENGTH) {
+      alert(`Part of speech must be ${FLASHCARD_CONSTRAINTS.PART_OF_SPEECH_MAX_LENGTH} characters or less`);
+      return;
+    }
+
     // Dispatch UPDATE_CARD action
     dispatch({
       type: 'UPDATE_CARD',
@@ -75,6 +83,7 @@ export function CardLibrary({ onNavigateToStudy }: CardLibraryProps = {}) {
         updates: {
           term: trimmedTerm,
           definition: trimmedDefinition,
+          ...(trimmedPartOfSpeech && { partOfSpeech: trimmedPartOfSpeech }),
         },
       },
     });
@@ -271,6 +280,26 @@ export function CardLibrary({ onNavigateToStudy }: CardLibraryProps = {}) {
                       className="w-full px-3 py-2 bg-dark-bg border-2 border-accent-secondary/60 rounded-lg text-white resize-none focus:outline-none focus:border-accent-secondary"
                     />
                   </div>
+                  <div>
+                    <label className="block text-xs font-mono text-cyan-400 uppercase mb-1">
+                      Part of Speech (Optional)
+                    </label>
+                    <input
+                      type="text"
+                      list="partsOfSpeechEdit"
+                      value={editingCard.partOfSpeech || ''}
+                      onChange={(e) =>
+                        setEditingCard({ ...editingCard, partOfSpeech: e.target.value })
+                      }
+                      className="w-full px-3 py-2 bg-dark-bg border-2 border-cyan-400/60 rounded-lg text-white focus:outline-none focus:border-cyan-400"
+                      placeholder="noun, verb, adjective, etc."
+                    />
+                    <datalist id="partsOfSpeechEdit">
+                      {RECOMMENDED_PARTS_OF_SPEECH.map((pos) => (
+                        <option key={pos} value={pos} />
+                      ))}
+                    </datalist>
+                  </div>
                   <div className="flex gap-2">
                     <button
                       onClick={handleSaveEdit}
@@ -306,6 +335,30 @@ export function CardLibrary({ onNavigateToStudy }: CardLibraryProps = {}) {
                     </p>
                   </div>
 
+                  {/* Part of Speech Badge */}
+                  {card.partOfSpeech && (
+                    <div>
+                      <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-cyan-500/20 border border-cyan-400/40">
+                        <svg
+                          className="w-3 h-3 text-cyan-400"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
+                          />
+                        </svg>
+                        <span className="text-xs font-mono text-cyan-300 uppercase">
+                          {card.partOfSpeech}
+                        </span>
+                      </div>
+                    </div>
+                  )}
+
                   {/* Action Buttons */}
                   <div className="flex gap-2 pt-2 border-t border-dark-border">
                     <button
@@ -324,7 +377,7 @@ export function CardLibrary({ onNavigateToStudy }: CardLibraryProps = {}) {
                       {card.mastered ? 'Mastered' : 'Mark Mastered'}
                     </button>
                     <button
-                      onClick={() => handleStartEdit(card.id, card.term, card.definition)}
+                      onClick={() => handleStartEdit(card.id, card.term, card.definition, card.partOfSpeech)}
                       className="px-3 py-2 bg-dark-bg border-2 border-dark-border text-gray-400 rounded-lg hover:border-accent-primary hover:text-accent-primary transition-all"
                       aria-label="Edit card"
                     >

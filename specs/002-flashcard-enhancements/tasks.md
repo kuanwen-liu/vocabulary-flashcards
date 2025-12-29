@@ -93,19 +93,19 @@ Repository structure (single-project React web application):
 
 ### Implementation for User Story 1
 
-- [ ] T023 [P] [US1] Add part of speech input to AddCardForm (datalist dropdown with RECOMMENDED_PARTS_OF_SPEECH) in src/components/AddCardForm.tsx
-- [ ] T024 [P] [US1] Add character count indicator (max 50 chars) for part of speech input in src/components/AddCardForm.tsx
-- [ ] T025 [US1] Update AddCardForm submit handler to include partOfSpeech in CreateFlashcardInput in src/components/AddCardForm.tsx
-- [ ] T026 [US1] Add part of speech display badge on FlashCard back side (below definition) in src/components/FlashCard.tsx
-- [ ] T027 [US1] Style part of speech badge with cyberpunk aesthetic (cyan glow, rounded pill shape) in src/components/FlashCard.tsx
-- [ ] T028 [US1] Add conditional rendering for part of speech (hide if undefined) in src/components/FlashCard.tsx
-- [ ] T029 [US1] Add part of speech edit input to CardLibrary edit mode in src/components/CardLibrary.tsx
-- [ ] T030 [US1] Update CardLibrary save handler to persist partOfSpeech changes in src/components/CardLibrary.tsx
-- [ ] T031 [US1] Test creating flashcard with part of speech "noun" and verify display
-- [ ] T032 [US1] Test editing existing flashcard to add/change/remove part of speech
-- [ ] T033 [US1] Test backward compatibility: verify old flashcards without partOfSpeech display correctly (no badge shown)
+- [x] T023 [P] [US1] Add part of speech input to AddCardForm (datalist dropdown with RECOMMENDED_PARTS_OF_SPEECH) in src/components/AddCardForm.tsx
+- [x] T024 [P] [US1] Add character count indicator (max 50 chars) for part of speech input in src/components/AddCardForm.tsx
+- [x] T025 [US1] Update AddCardForm submit handler to include partOfSpeech in CreateFlashcardInput in src/components/AddCardForm.tsx
+- [x] T026 [US1] Add part of speech display badge on FlashCard back side (below definition) in src/components/FlashCard.tsx
+- [x] T027 [US1] Style part of speech badge with cyberpunk aesthetic (cyan glow, rounded pill shape) in src/components/FlashCard.tsx
+- [x] T028 [US1] Add conditional rendering for part of speech (hide if undefined) in src/components/FlashCard.tsx
+- [x] T029 [US1] Add part of speech edit input to CardLibrary edit mode in src/components/CardLibrary.tsx
+- [x] T030 [US1] Update CardLibrary save handler to persist partOfSpeech changes in src/components/CardLibrary.tsx
+- [x] T031 [US1] Test creating flashcard with part of speech "noun" and verify display
+- [x] T032 [US1] Test editing existing flashcard to add/change/remove part of speech
+- [x] T033 [US1] Test backward compatibility: verify old flashcards without partOfSpeech display correctly (no badge shown)
 
-**Checkpoint**: Part of speech fully functional for create, display, and edit operations
+**Checkpoint**: ✅ Part of speech fully functional for create, display, and edit operations
 
 ---
 

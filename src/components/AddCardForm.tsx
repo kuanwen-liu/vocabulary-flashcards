@@ -22,6 +22,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useCards } from '../contexts/CardContext';
 import type { AddCardFormProps } from '../types/flashcard';
+import { RECOMMENDED_PARTS_OF_SPEECH, FLASHCARD_CONSTRAINTS } from '../types/flashcard';
 
 const MAX_WORD_LENGTH = 100;
 const MAX_MEANING_LENGTH = 500;
@@ -30,7 +31,8 @@ export function AddCardForm({ onCardAdded }: AddCardFormProps = {}) {
   const { dispatch } = useCards();
   const [word, setWord] = useState('');
   const [meaning, setMeaning] = useState('');
-  const [errors, setErrors] = useState<{ word?: string; meaning?: string }>({});
+  const [partOfSpeech, setPartOfSpeech] = useState('');
+  const [errors, setErrors] = useState<{ word?: string; meaning?: string; partOfSpeech?: string }>({});
   const [showSuccess, setShowSuccess] = useState(false);
   const wordInputRef = useRef<HTMLInputElement>(null);
 
@@ -43,7 +45,7 @@ export function AddCardForm({ onCardAdded }: AddCardFormProps = {}) {
   }, [showSuccess]);
 
   const validateForm = (): boolean => {
-    const newErrors: { word?: string; meaning?: string } = {};
+    const newErrors: { word?: string; meaning?: string; partOfSpeech?: string } = {};
 
     // Validate word
     if (!word.trim()) {
@@ -57,6 +59,11 @@ export function AddCardForm({ onCardAdded }: AddCardFormProps = {}) {
       newErrors.meaning = 'Meaning is required';
     } else if (meaning.length > MAX_MEANING_LENGTH) {
       newErrors.meaning = `Meaning must be ${MAX_MEANING_LENGTH} characters or less`;
+    }
+
+    // Validate part of speech (optional field)
+    if (partOfSpeech.trim().length > 0 && partOfSpeech.length > FLASHCARD_CONSTRAINTS.PART_OF_SPEECH_MAX_LENGTH) {
+      newErrors.partOfSpeech = `Part of speech must be ${FLASHCARD_CONSTRAINTS.PART_OF_SPEECH_MAX_LENGTH} characters or less`;
     }
 
     setErrors(newErrors);
@@ -75,6 +82,7 @@ export function AddCardForm({ onCardAdded }: AddCardFormProps = {}) {
       term: word.trim(),
       definition: meaning.trim(),
       mastered: false,
+      ...(partOfSpeech.trim() && { partOfSpeech: partOfSpeech.trim() }),
     };
 
     dispatch({
@@ -88,6 +96,7 @@ export function AddCardForm({ onCardAdded }: AddCardFormProps = {}) {
     // Clear form
     setWord('');
     setMeaning('');
+    setPartOfSpeech('');
     setErrors({});
 
     // Focus back on word input for quick successive additions
@@ -105,6 +114,7 @@ export function AddCardForm({ onCardAdded }: AddCardFormProps = {}) {
 
   const getWordCharCount = () => word.length;
   const getMeaningCharCount = () => meaning.length;
+  const getPartOfSpeechCharCount = () => partOfSpeech.length;
 
   const isWordValid = word.trim().length > 0 && word.length <= MAX_WORD_LENGTH;
   const isMeaningValid =
@@ -258,6 +268,73 @@ export function AddCardForm({ onCardAdded }: AddCardFormProps = {}) {
                 />
               </svg>
               {errors.meaning}
+            </p>
+          )}
+        </div>
+
+        {/* Part of Speech Input (Optional) */}
+        <div className="space-y-2">
+          <label
+            htmlFor="partOfSpeech"
+            className="flex items-center justify-between text-sm font-mono uppercase tracking-wider"
+          >
+            <span className="text-cyan-400">Part of Speech (Optional)</span>
+            <span
+              className={`text-xs ${
+                getPartOfSpeechCharCount() > FLASHCARD_CONSTRAINTS.PART_OF_SPEECH_MAX_LENGTH
+                  ? 'text-red-400'
+                  : getPartOfSpeechCharCount() > FLASHCARD_CONSTRAINTS.PART_OF_SPEECH_MAX_LENGTH * 0.9
+                  ? 'text-accent-warning'
+                  : 'text-gray-500'
+              }`}
+            >
+              {getPartOfSpeechCharCount()} / {FLASHCARD_CONSTRAINTS.PART_OF_SPEECH_MAX_LENGTH}
+            </span>
+          </label>
+          <input
+            type="text"
+            id="partOfSpeech"
+            list="partsOfSpeech"
+            value={partOfSpeech}
+            onChange={(e) => setPartOfSpeech(e.target.value)}
+            onBlur={validateForm}
+            className={`
+              w-full px-4 py-3 bg-dark-card border-2 rounded-xl
+              font-sans text-lg text-white placeholder-gray-500
+              transition-all duration-300
+              focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-dark-bg
+              ${
+                errors.partOfSpeech
+                  ? 'border-red-500 focus:border-red-500 focus:ring-red-500/50'
+                  : partOfSpeech.length > 0
+                  ? 'border-cyan-400/60 focus:border-cyan-400 focus:ring-cyan-400/50 shadow-glow'
+                  : 'border-dark-border focus:border-cyan-400 focus:ring-cyan-400/50'
+              }
+            `}
+            placeholder="noun, verb, adjective, etc."
+            aria-label="Part of speech (optional)"
+            aria-invalid={!!errors.partOfSpeech}
+            aria-describedby={errors.partOfSpeech ? 'partOfSpeech-error' : undefined}
+            maxLength={FLASHCARD_CONSTRAINTS.PART_OF_SPEECH_MAX_LENGTH + 10}
+          />
+          <datalist id="partsOfSpeech">
+            {RECOMMENDED_PARTS_OF_SPEECH.map((pos) => (
+              <option key={pos} value={pos} />
+            ))}
+          </datalist>
+          {errors.partOfSpeech && (
+            <p
+              id="partOfSpeech-error"
+              className="text-sm text-red-400 flex items-center gap-2"
+            >
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  fillRule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              {errors.partOfSpeech}
             </p>
           )}
         </div>

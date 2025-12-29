@@ -163,6 +163,8 @@ export interface FlashCardProps {
   definition: string;
   mastered: boolean;
   onToggleMastered: () => void;
+  partOfSpeech?: string;
+  exampleSentences?: string[];
 }
 
 /**

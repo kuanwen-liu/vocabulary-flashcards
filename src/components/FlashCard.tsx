@@ -25,6 +25,7 @@ export function FlashCard({
   definition,
   mastered,
   onToggleMastered,
+  partOfSpeech,
 }: FlashCardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
 
@@ -129,10 +130,32 @@ export function FlashCard({
             </div>
 
             {/* Meaning text */}
-            <div className="flex-1 flex items-center justify-center px-8">
+            <div className="flex-1 flex flex-col items-center justify-center px-8 space-y-6">
               <p className="text-2xl md:text-3xl text-center leading-relaxed text-gray-200">
                 {definition}
               </p>
+
+              {/* Part of Speech Badge */}
+              {partOfSpeech && (
+                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/20 border border-cyan-400/40 shadow-[0_0_15px_rgba(34,211,238,0.4)]">
+                  <svg
+                    className="w-4 h-4 text-cyan-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
+                    />
+                  </svg>
+                  <span className="text-sm font-mono text-cyan-300 uppercase tracking-wide">
+                    {partOfSpeech}
+                  </span>
+                </div>
+              )}
             </div>
 
             {/* Footer with flip hint */}
