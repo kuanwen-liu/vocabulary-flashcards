@@ -2,6 +2,9 @@
  * Bulk Import Utility - Parse Text into Flashcards
  *
  * Supports multiple input formats for quickly creating vocabulary cards:
+ * - Basic format: "word, meaning"
+ * - With part of speech: "word, meaning, noun"
+ * - With examples: "word, meaning, noun, example1 | example2"
  * - Semicolon-separated: "word, meaning; word2, meaning2; word3, meaning3"
  * - Newline-separated: "word, meaning\nword2, meaning2\nword3, meaning3"
  * - Mixed format: Combination of both
@@ -9,12 +12,15 @@
  * Validation Rules:
  * - Vocabulary: 1-100 characters
  * - Meaning: 1-500 characters
- * - Both fields must be non-empty after trimming
+ * - Part of speech (optional): 1-50 characters
+ * - Example sentences (optional): 1-500 characters each, max 5 examples
+ * - Both term and definition must be non-empty after trimming
  *
  * Returns BulkImportResult with successful and failed entries for user feedback.
  */
 
 import type { Flashcard, BulkImportResult } from '../types/flashcard';
+import { FLASHCARD_CONSTRAINTS } from '../types/flashcard';
 
 /**
  * Character limits matching AddCardForm validation
@@ -69,21 +75,23 @@ export function parseBulkImportText(rawText: string): BulkImportResult {
       continue;
     }
 
-    // Try to parse as "vocabulary, meaning" format
-    const commaIndex = trimmedEntry.indexOf(',');
+    // Parse format: "vocabulary, meaning[, partOfSpeech[, example1 | example2]]"
+    // Split by commas, but be careful as meaning and examples may contain commas
+    const parts = trimmedEntry.split(',').map(p => p.trim());
 
-    if (commaIndex === -1) {
-      // No comma found - invalid format
+    if (parts.length < 2) {
+      // Need at least vocabulary and meaning
       failed.push({
         rawText: trimmedEntry,
-        error: 'Missing comma separator. Expected format: "vocabulary, meaning"',
+        error: 'Missing comma separator. Expected format: "vocabulary, meaning[, partOfSpeech[, examples]]"',
       });
       continue;
     }
 
-    // Split by first comma only (meaning may contain commas)
-    const vocabulary = trimmedEntry.substring(0, commaIndex).trim();
-    const meaning = trimmedEntry.substring(commaIndex + 1).trim();
+    const vocabulary = parts[0];
+    const meaning = parts[1];
+    const partOfSpeech = parts.length >= 3 ? parts[2] : undefined;
+    const examplesRaw = parts.length >= 4 ? parts.slice(3).join(',').trim() : undefined;
 
     // Validate vocabulary
     if (!vocabulary) {
@@ -119,6 +127,55 @@ export function parseBulkImportText(rawText: string): BulkImportResult {
       continue;
     }
 
+    // Validate part of speech (optional)
+    if (partOfSpeech && partOfSpeech.length > 0) {
+      if (partOfSpeech.length > FLASHCARD_CONSTRAINTS.PART_OF_SPEECH_MAX_LENGTH) {
+        failed.push({
+          rawText: trimmedEntry,
+          error: `Part of speech exceeds ${FLASHCARD_CONSTRAINTS.PART_OF_SPEECH_MAX_LENGTH} characters (${partOfSpeech.length} chars)`,
+        });
+        continue;
+      }
+    }
+
+    // Parse and validate example sentences (optional, pipe-delimited)
+    let exampleSentences: string[] | undefined = undefined;
+    if (examplesRaw && examplesRaw.length > 0) {
+      const examples = examplesRaw
+        .split('|')
+        .map(ex => ex.trim())
+        .filter(ex => ex.length > 0);
+
+      if (examples.length > FLASHCARD_CONSTRAINTS.MAX_EXAMPLE_SENTENCES) {
+        failed.push({
+          rawText: trimmedEntry,
+          error: `Too many examples (${examples.length}). Maximum is ${FLASHCARD_CONSTRAINTS.MAX_EXAMPLE_SENTENCES}`,
+        });
+        continue;
+      }
+
+      // Validate each example length
+      let exampleError = false;
+      for (const example of examples) {
+        if (example.length > FLASHCARD_CONSTRAINTS.EXAMPLE_SENTENCE_MAX_LENGTH) {
+          failed.push({
+            rawText: trimmedEntry,
+            error: `Example sentence exceeds ${FLASHCARD_CONSTRAINTS.EXAMPLE_SENTENCE_MAX_LENGTH} characters (${example.length} chars)`,
+          });
+          exampleError = true;
+          break;
+        }
+      }
+
+      if (exampleError) {
+        continue;
+      }
+
+      if (examples.length > 0) {
+        exampleSentences = examples;
+      }
+    }
+
     // Create flashcard
     const card: Flashcard = {
       id: crypto.randomUUID(),
@@ -126,6 +183,8 @@ export function parseBulkImportText(rawText: string): BulkImportResult {
       definition: meaning,
       mastered: false,
       createdAt: new Date().toISOString(),
+      ...(partOfSpeech && partOfSpeech.length > 0 && { partOfSpeech }),
+      ...(exampleSentences && exampleSentences.length > 0 && { exampleSentences }),
     };
 
     successful.push(card);

@@ -260,6 +260,8 @@ export function StudyView() {
               definition={currentCard.definition}
               mastered={currentCard.mastered}
               onToggleMastered={handleToggleMastered}
+              partOfSpeech={currentCard.partOfSpeech}
+              exampleSentences={currentCard.exampleSentences}
             />
           )}
         </div>

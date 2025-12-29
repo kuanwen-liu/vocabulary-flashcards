@@ -145,22 +145,36 @@ export function BulkImport({ onImportComplete }: BulkImportProps) {
         <h3 className="text-sm font-mono uppercase tracking-wider text-accent-primary mb-3">
           Supported Formats
         </h3>
-        <div className="space-y-2 text-sm text-gray-400 font-mono">
+        <div className="space-y-3 text-sm text-gray-400 font-mono">
           <div>
-            <span className="text-accent-secondary">One entry per line:</span>
+            <span className="text-accent-secondary">Basic format:</span>
             <code className="block ml-4 mt-1 text-gray-300 whitespace-pre-line">
-              eloquent, fluent or persuasive; 流暢的
-              ephemeral, lasting for a short time; 短暫的
+              eloquent, fluent or persuasive
+              ephemeral, lasting for a short time
             </code>
           </div>
           <div>
-            <span className="text-accent-secondary">Single line (semicolon-separated):</span>
+            <span className="text-accent-secondary">With part of speech:</span>
+            <code className="block ml-4 mt-1 text-gray-300 whitespace-pre-line">
+              eloquent, fluent or persuasive, adjective
+              ephemeral, lasting briefly, adjective
+            </code>
+          </div>
+          <div>
+            <span className="text-accent-secondary">With examples (pipe-separated):</span>
+            <code className="block ml-4 mt-1 text-gray-300 whitespace-pre-line">
+              ephemeral, lasting briefly, adjective, Cherry blossoms are ephemeral | Morning dew is ephemeral
+            </code>
+          </div>
+          <div>
+            <span className="text-accent-secondary">Semicolon-separated:</span>
             <code className="block ml-4 mt-1 text-gray-300">
               eloquent, fluent; ephemeral, short-lived; ubiquitous, everywhere
             </code>
           </div>
-          <div className="text-xs text-gray-500 mt-3">
-            💡 Tip: Press <kbd className="px-2 py-1 bg-dark-bg rounded border border-dark-border">Cmd+Enter</kbd> to import
+          <div className="text-xs text-gray-500 mt-4 space-y-1">
+            <div>💡 Tip: Press <kbd className="px-2 py-1 bg-dark-bg rounded border border-dark-border">Cmd+Enter</kbd> to import</div>
+            <div>📝 Format: <code className="text-cyan-400">term, definition[, partOfSpeech[, example1 | example2]]</code></div>
           </div>
         </div>
       </div>
@@ -172,7 +186,7 @@ export function BulkImport({ onImportComplete }: BulkImportProps) {
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Paste your vocabulary list here...&#10;&#10;Example:&#10;Eloquent, fluent or persuasive in speaking or writing; 流暢的&#10;Ephemeral, lasting for a very short time; 短暫的&#10;Ubiquitous, present everywhere; 無處不在的"
+            placeholder="Paste your vocabulary list here...&#10;&#10;Examples:&#10;eloquent, fluent or persuasive&#10;ephemeral, lasting briefly, adjective&#10;ubiquitous, everywhere, adjective, You can find coffee shops ubiquitously in the city"
             className="w-full h-64 px-6 py-4 bg-dark-card border-2 border-dark-border rounded-xl text-white placeholder-gray-500 font-mono text-sm resize-none focus:border-accent-primary focus:shadow-glow transition-all duration-300 outline-none"
             aria-label="Bulk import text input"
           />

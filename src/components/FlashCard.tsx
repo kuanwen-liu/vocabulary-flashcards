@@ -18,12 +18,15 @@
 
 import { useState } from 'react';
 import type { FlashCardProps } from '../types/flashcard';
+import { SpeakerButton } from './SpeakerButton';
 
 export function FlashCard({
   term,
   definition,
   mastered,
   onToggleMastered,
+  partOfSpeech,
+  exampleSentences,
 }: FlashCardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
 
@@ -55,9 +58,14 @@ export function FlashCard({
       >
         {/* Front Face - Word */}
         <div className="flip-card-face flip-card-front">
-          <div className="card-content group">
+          <div className="card-content group relative">
             {/* Holographic shine effect */}
             <div className="card-holographic" />
+
+            {/* Speaker Button - Top Right Corner */}
+            <div className="absolute top-4 right-4 z-10">
+              <SpeakerButton text={term} />
+            </div>
 
             {/* Card header with mastered badge */}
             <div className="flex items-center justify-between mb-8">
@@ -123,10 +131,64 @@ export function FlashCard({
             </div>
 
             {/* Meaning text */}
-            <div className="flex-1 flex items-center justify-center px-8">
+            <div className="flex-1 flex flex-col items-center justify-center px-8 space-y-6">
               <p className="text-2xl md:text-3xl text-center leading-relaxed text-gray-200">
                 {definition}
               </p>
+
+              {/* Part of Speech Badge */}
+              {partOfSpeech && (
+                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/20 border border-cyan-400/40 shadow-[0_0_15px_rgba(34,211,238,0.4)]">
+                  <svg
+                    className="w-4 h-4 text-cyan-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
+                    />
+                  </svg>
+                  <span className="text-sm font-mono text-cyan-300 uppercase tracking-wide">
+                    {partOfSpeech}
+                  </span>
+                </div>
+              )}
+
+              {/* Example Sentences */}
+              {exampleSentences && exampleSentences.length > 0 && (
+                <div className="w-full max-w-xl space-y-3">
+                  <div className="flex items-center gap-2 text-sm font-mono text-purple-400 uppercase tracking-wider">
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                      />
+                    </svg>
+                    Examples
+                  </div>
+                  <ul className="space-y-2">
+                    {exampleSentences.map((example, index) => (
+                      <li
+                        key={index}
+                        className="pl-4 pr-2 py-2 text-sm text-gray-300 border-l-4 border-purple-500/60 bg-purple-500/10 rounded-r-lg"
+                      >
+                        {example}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
 
             {/* Footer with flip hint */}

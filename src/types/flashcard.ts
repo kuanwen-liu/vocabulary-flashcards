@@ -3,10 +3,46 @@
  *
  * Core types for the flashcard learning application with LocalStorage persistence.
  * Follows the data model specification from specs/001-flashcards-app/data-model.md
+ * Enhanced with optional linguistic metadata per specs/002-flashcard-enhancements/data-model.md
  */
 
 /**
+ * Recommended part of speech values for flashcards
+ * Users can also enter custom values not in this list
+ */
+export const RECOMMENDED_PARTS_OF_SPEECH = [
+  'noun',
+  'verb',
+  'adjective',
+  'adverb',
+  'pronoun',
+  'preposition',
+  'conjunction',
+  'interjection',
+  'other',
+] as const;
+
+export type RecommendedPartOfSpeech =
+  (typeof RECOMMENDED_PARTS_OF_SPEECH)[number];
+
+/**
+ * Validation constraints for flashcard fields
+ * Based on specs/002-flashcard-enhancements/data-model.md
+ */
+export const FLASHCARD_CONSTRAINTS = {
+  TERM_MIN_LENGTH: 1,
+  TERM_MAX_LENGTH: 500,
+  DEFINITION_MIN_LENGTH: 1,
+  DEFINITION_MAX_LENGTH: 2000,
+  PART_OF_SPEECH_MAX_LENGTH: 50,
+  EXAMPLE_SENTENCE_MIN_LENGTH: 1,
+  EXAMPLE_SENTENCE_MAX_LENGTH: 500,
+  MAX_EXAMPLE_SENTENCES: 5,
+} as const;
+
+/**
  * Represents a single flashcard with term (front) and definition (back)
+ * Enhanced with optional linguistic metadata: part of speech and example sentences
  */
 export interface Flashcard {
   /** Unique identifier (UUID v4) - immutable once created */
@@ -23,6 +59,12 @@ export interface Flashcard {
 
   /** ISO 8601 timestamp of when card was created - immutable */
   createdAt: string;
+
+  /** Part of speech (optional) - grammatical category like noun, verb, adjective - 1-50 characters */
+  partOfSpeech?: string;
+
+  /** Example sentences (optional) - 0-5 contextual usage examples, each max 500 characters */
+  exampleSentences?: string[];
 }
 
 /**
@@ -52,7 +94,7 @@ export type CardAction =
       type: 'UPDATE_CARD';
       payload: {
         id: string;
-        updates: Partial<Pick<Flashcard, 'term' | 'definition'>>;
+        updates: UpdateFlashcardInput;
       };
     }
   | {
@@ -121,6 +163,8 @@ export interface FlashCardProps {
   definition: string;
   mastered: boolean;
   onToggleMastered: () => void;
+  partOfSpeech?: string;
+  exampleSentences?: string[];
 }
 
 /**
@@ -168,3 +212,24 @@ export interface FilterToggleProps {
   /** Count of unmastered cards for "Needs Review" badge */
   needsReviewCount?: number;
 }
+
+/**
+ * Input type for creating a new flashcard
+ * Omits auto-generated fields (id, createdAt) and defaults (mastered)
+ * Includes optional enhanced fields (partOfSpeech, exampleSentences)
+ */
+export type CreateFlashcardInput = Omit<
+  Flashcard,
+  'id' | 'createdAt' | 'mastered'
+> & {
+  mastered?: boolean; // Optional override for mastered status
+};
+
+/**
+ * Input type for updating an existing flashcard
+ * Only user-editable fields can be updated (immutable fields excluded)
+ * Includes optional enhanced fields (partOfSpeech, exampleSentences)
+ */
+export type UpdateFlashcardInput = Partial<
+  Pick<Flashcard, 'term' | 'definition' | 'partOfSpeech' | 'exampleSentences'>
+>;
