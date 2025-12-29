@@ -64,20 +64,20 @@ Repository structure (single-project React web application):
 
 ### Implementation for User Story 3
 
-- [ ] T011 [P] [US3] Create useSpeechSynthesis custom hook in src/hooks/useSpeechSynthesis.ts with speak/pause/resume/stop functions
-- [ ] T012 [P] [US3] Implement voice loading with onvoiceschanged event handler in src/hooks/useSpeechSynthesis.ts
-- [ ] T013 [P] [US3] Add error handling for TTS errors (cancelled, interrupted, audio-unavailable) in src/hooks/useSpeechSynthesis.ts
-- [ ] T014 [P] [US3] Create SpeakerButton component with speaker icon SVG in src/components/SpeakerButton.tsx
-- [ ] T015 [US3] Integrate useSpeechSynthesis hook into SpeakerButton component in src/components/SpeakerButton.tsx
-- [ ] T016 [US3] Add ARIA labels (aria-label="Read term aloud") to SpeakerButton in src/components/SpeakerButton.tsx
-- [ ] T017 [US3] Add keyboard shortcut support (Alt+R to speak, Space to pause/resume, Escape to stop) in src/components/SpeakerButton.tsx
-- [ ] T018 [US3] Style SpeakerButton with cyberpunk aesthetic (purple glow, dark background) in src/components/SpeakerButton.tsx
-- [ ] T019 [US3] Add SpeakerButton to FlashCard front side (top-right corner, absolute positioning) in src/components/FlashCard.tsx
-- [ ] T020 [US3] Implement disabled state when Web Speech API not supported in src/components/SpeakerButton.tsx
-- [ ] T021 [US3] Test speaker button on mobile devices (responsive positioning, touch targets)
-- [ ] T022 [US3] Verify 3D flip animation still works correctly after adding speaker button to front side
+- [x] T011 [P] [US3] Create useSpeechSynthesis custom hook in src/hooks/useSpeechSynthesis.ts with speak/pause/resume/stop functions
+- [x] T012 [P] [US3] Implement voice loading with onvoiceschanged event handler in src/hooks/useSpeechSynthesis.ts
+- [x] T013 [P] [US3] Add error handling for TTS errors (cancelled, interrupted, audio-unavailable) in src/hooks/useSpeechSynthesis.ts
+- [x] T014 [P] [US3] Create SpeakerButton component with speaker icon SVG in src/components/SpeakerButton.tsx
+- [x] T015 [US3] Integrate useSpeechSynthesis hook into SpeakerButton component in src/components/SpeakerButton.tsx
+- [x] T016 [US3] Add ARIA labels (aria-label="Read term aloud") to SpeakerButton in src/components/SpeakerButton.tsx
+- [x] T017 [US3] Add keyboard shortcut support (Alt+R to speak, Space to pause/resume, Escape to stop) in src/components/SpeakerButton.tsx
+- [x] T018 [US3] Style SpeakerButton with cyberpunk aesthetic (purple glow, dark background) in src/components/SpeakerButton.tsx
+- [x] T019 [US3] Add SpeakerButton to FlashCard front side (top-right corner, absolute positioning) in src/components/FlashCard.tsx
+- [x] T020 [US3] Implement disabled state when Web Speech API not supported in src/components/SpeakerButton.tsx
+- [x] T021 [US3] Test speaker button on mobile devices (responsive positioning, touch targets)
+- [x] T022 [US3] Verify 3D flip animation still works correctly after adding speaker button to front side
 
-**Checkpoint**: Speaker button functional on all flashcards, reads terms aloud with Web Speech API
+**Checkpoint**: ✅ Speaker button functional on all flashcards, reads terms aloud with Web Speech API
 
 ---
 

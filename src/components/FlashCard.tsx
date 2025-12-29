@@ -18,6 +18,7 @@
 
 import { useState } from 'react';
 import type { FlashCardProps } from '../types/flashcard';
+import { SpeakerButton } from './SpeakerButton';
 
 export function FlashCard({
   term,
@@ -55,9 +56,14 @@ export function FlashCard({
       >
         {/* Front Face - Word */}
         <div className="flip-card-face flip-card-front">
-          <div className="card-content group">
+          <div className="card-content group relative">
             {/* Holographic shine effect */}
             <div className="card-holographic" />
+
+            {/* Speaker Button - Top Right Corner */}
+            <div className="absolute top-4 right-4 z-10">
+              <SpeakerButton text={term} />
+            </div>
 
             {/* Card header with mastered badge */}
             <div className="flex items-center justify-between mb-8">
