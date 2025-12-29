@@ -255,6 +255,7 @@ export function CardProvider({ children }: { children: ReactNode }) {
  * }
  * ```
  */
+// eslint-disable-next-line react-refresh/only-export-components
 export function useCards(): CardContextValue {
   const context = useContext(CardContext);
 
@@ -269,43 +270,8 @@ export function useCards(): CardContextValue {
 }
 
 /**
- * Derived Selectors - Computed values from state
- *
- * These utility functions can be used with useCards to get derived data.
- * They're pure functions that don't cause re-renders.
+ * Re-export utility functions from cardSelectors
+ * (Moved to separate file to support React Fast Refresh)
  */
-
-/**
- * Get visible cards based on current filter
- */
-export function getVisibleCards(state: CardState): Flashcard[] {
-  if (state.filter === 'needsReview') {
-    return state.cards.filter((card) => !card.mastered);
-  }
-  return state.cards;
-}
-
-/**
- * Get current card being studied (or null if none)
- */
-export function getCurrentCard(state: CardState): Flashcard | null {
-  const visibleCards = getVisibleCards(state);
-  return visibleCards[state.currentCardIndex] || null;
-}
-
-/**
- * Get statistics about card collection
- */
-export function getCardStats(state: CardState) {
-  const total = state.cards.length;
-  const mastered = state.cards.filter((card) => card.mastered).length;
-  const needsReview = total - mastered;
-  const masteredPercentage = total > 0 ? Math.round((mastered / total) * 100) : 0;
-
-  return {
-    total,
-    mastered,
-    needsReview,
-    masteredPercentage,
-  };
-}
+// eslint-disable-next-line react-refresh/only-export-components
+export { getVisibleCards, getCurrentCard, getCardStats } from '../utils/cardSelectors';

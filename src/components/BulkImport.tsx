@@ -23,7 +23,7 @@
 
 import { useState, useCallback } from 'react';
 import { useCards } from '../contexts/CardContext';
-import { parseBulkImportText, checkExistingDuplicates } from '../utils/bulkImport';
+import { parseBulkImportText } from '../utils/bulkImport';
 import type { BulkImportProps, BulkImportResult } from '../types/flashcard';
 
 export function BulkImport({ onImportComplete }: BulkImportProps) {

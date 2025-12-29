@@ -182,10 +182,11 @@ export function clearAllData(createBackup = false): void {
  * - v1.0 → v1.1: Add 'tags' field with default []
  * - v1.1 → v1.2: Add 'difficulty' field with default 'medium'
  */
-function migrateData(data: any): Flashcard[] {
+function migrateData(data: unknown): Flashcard[] {
   // For now, we only have v1.0, so unknown versions are discarded
+  const dataWithVersion = data as { version?: string };
   console.warn(
-    `[Storage] Unknown schema version: ${data.version}. Starting fresh.`
+    `[Storage] Unknown schema version: ${dataWithVersion.version}. Starting fresh.`
   );
 
   // Future migration logic would go here:
