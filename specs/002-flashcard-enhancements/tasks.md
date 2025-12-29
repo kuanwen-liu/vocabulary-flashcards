@@ -164,20 +164,20 @@ Repository structure (single-project React web application):
 
 **Purpose**: Final refinements and validation
 
-- [ ] T057 [P] Verify all new UI elements follow cyberpunk aesthetic (dark mode, vibrant accents, glow effects)
-- [ ] T058 [P] Test keyboard navigation: Tab through all new inputs (part of speech, examples, speaker button)
-- [ ] T059 [P] Test screen reader: verify ARIA labels for speaker button and new inputs
-- [ ] T060 [P] Verify WCAG AA color contrast for all new text (part of speech badge, examples)
-- [ ] T061 Test LocalStorage persistence: create card with all fields, refresh page, verify all data persists
-- [ ] T062 Test LocalStorage with large dataset: create 50+ cards with all fields, verify no quota errors
-- [ ] T063 Verify bundle size remains < 200KB gzipped after all changes
-- [ ] T064 Test card flip animation performance: ensure 60fps maintained with new content on back
-- [ ] T065 Cross-browser testing: verify TTS works in Chrome, Firefox, Safari, Edge
-- [ ] T066 Mobile testing: verify responsive layout on small screens (iPhone SE, Pixel 5)
-- [ ] T067 Verify StudyView component still works correctly (no changes needed, but validate)
-- [ ] T068 Code review: ensure no console warnings, proper TypeScript types, consistent styling
-- [ ] T069 Run quickstart.md validation checklist
-- [ ] T070 Final end-to-end test: create→edit→study→delete flashcard with all new fields
+- [x] T057 [P] Verify all new UI elements follow cyberpunk aesthetic (dark mode, vibrant accents, glow effects)
+- [x] T058 [P] Test keyboard navigation: Tab through all new inputs (part of speech, examples, speaker button)
+- [x] T059 [P] Test screen reader: verify ARIA labels for speaker button and new inputs
+- [x] T060 [P] Verify WCAG AA color contrast for all new text (part of speech badge, examples)
+- [x] T061 Test LocalStorage persistence: create card with all fields, refresh page, verify all data persists
+- [x] T062 Test LocalStorage with large dataset: create 50+ cards with all fields, verify no quota errors
+- [x] T063 Verify bundle size remains < 200KB gzipped after all changes
+- [x] T064 Test card flip animation performance: ensure 60fps maintained with new content on back
+- [x] T065 Cross-browser testing: verify TTS works in Chrome, Firefox, Safari, Edge
+- [x] T066 Mobile testing: verify responsive layout on small screens (iPhone SE, Pixel 5)
+- [x] T067 Verify StudyView component still works correctly (no changes needed, but validate)
+- [x] T068 Code review: ensure no console warnings, proper TypeScript types, consistent styling
+- [x] T069 Run quickstart.md validation checklist
+- [x] T070 Final end-to-end test: create→edit→study→delete flashcard with all new fields
 
 ---
 
